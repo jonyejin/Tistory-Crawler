@@ -16,6 +16,9 @@
 * (Optional) Database 연결하기
     - 위 프로젝트는 `Postgresql`에 데이터를 저장하는 형태로 개발되었습니다. `Secrets.py`파일을 만들어서 `SECRET_HOST`, `SECRET_DBNAME`, `SECRET_USER`, `SECRET_PASSWORD`, `SECRET_PORT` 변수를 채워줍니다.
 
+### Run
+`python main.py`
+
 ### Crawl Blog Path
 [티스토리 메인 스토리탭](https://www.tistory.com/category/) 에서 5가지 탭의 블로그 HOST명을 크롤링해서 데이터베이스에 저장합니다. 2023-03-21 기준 한 탭에 6100개의 추천 글이 있었습니다.
 
