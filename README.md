@@ -23,7 +23,8 @@
 
 
 ### Crawl Blog Body
-수집한 Blog포스팅의 PATH가 숫자로만 이루어진 포스팅인 경우만, 1번 포스팅부터 수집된 PATH까지 HTML Body를 반복문을 통해서 크롤링 합니다. **현재는 PATH가 문자를 포함한 블로그는 수집하지 않고 있습니다. EX) `sweetdev.tistory.com/about-python` 과 같은 블로그는 수집하지 않고, `sweetdev.tistory.com/14`
+수집한 Blog포스팅의 PATH가 숫자로만 이루어진 포스팅인 경우만, 1번 포스팅부터 수집된 PATH까지 HTML Body를 반복문을 통해서 크롤링 합니다. **현재는 PATH가 문자를 포함한 블로그는 수집하지 않고 있습니다. 
+- EX) `sweetdev.tistory.com/about-python` 과 같주소체계를 사용하는 블로그는 수집하지 않고, `sweetdev.tistory.com/14`와 같이 숫자 주소체계를 사용하는 블로그의 글은 수집 합니다.
 
 ### Dependencies
 * beautifulsoup4
