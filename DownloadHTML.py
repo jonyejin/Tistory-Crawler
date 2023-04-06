@@ -9,7 +9,7 @@ from urllib.parse import urlparse
 from selenium.webdriver import ActionChains
 from typing import *
 from urllib.parse import urljoin, urlencode, urlparse, urlunparse
-from selenium.common.exceptions import NoSuchElementException, NoSuchAttributeException
+from selenium.common.exceptions import NoSuchElementException, NoSuchAttributeException, TimeoutException
 
 class DownloadHTML():
     def __init__(self, driver):
@@ -26,8 +26,13 @@ class DownloadHTML():
         print(">>")
         # check driver status
         time.sleep(3) 
+        try:
+            driver.get(url)
+        except TimeoutException as e:
+            print("TIMEOUT")
+            print(e)
+            return
 
-        driver.get(url)
         print(">>")
 
         # 에러 페이지인지 확인 - $x("//*[@id="mArticle"]/div")

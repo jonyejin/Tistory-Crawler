@@ -41,7 +41,7 @@ downloader = DownloadHTML(driver)
 # url이 저장되어 있을 때 중복되지 않게 불러와서 tistory url리스트를 만들고 
 # 각각에 대해서 download하고 다시 db에 저장해준다.
 
-value = 137
+value = 849
 limit = 100
 try:
     while True:
