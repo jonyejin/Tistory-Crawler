@@ -16,6 +16,9 @@
 * (Optional) Database 연결하기
     - 위 프로젝트는 `Postgresql`에 데이터를 저장하는 형태로 개발되었습니다. `Secrets.py`파일을 만들어서 `SECRET_HOST`, `SECRET_DBNAME`, `SECRET_USER`, `SECRET_PASSWORD`, `SECRET_PORT` 변수를 채워줍니다.
 
+### Run
+`python main.py`
+
 ### Crawl Blog Path
 [티스토리 메인 스토리탭](https://www.tistory.com/category/) 에서 5가지 탭의 블로그 HOST명을 크롤링해서 데이터베이스에 저장합니다. `2023-03-21` 기준 한 탭에 6100개의 추천 글이 있었습니다.
 
@@ -23,7 +26,8 @@
 
 
 ### Crawl Blog Body
-수집한 Blog포스팅의 PATH가 숫자로만 이루어진 포스팅인 경우만, 1번 포스팅부터 수집된 PATH까지 반복문을 통해서 크롤링 합니다. **현재는 PATH가 문자를 포함한 블로그는 수집하지 않고 있습니다.** HTML Body를 Database에 저장합니다.
+수집한 Blog포스팅의 PATH가 숫자로만 이루어진 포스팅인 경우만, 1번 포스팅부터 수집된 PATH까지 HTML Body를 반복문을 통해서 크롤링 합니다. **현재는 PATH가 문자를 포함한 블로그는 수집하지 않고 있습니다. 
+- EX) `sweetdev.tistory.com/about-python` 과 같주소체계를 사용하는 블로그는 수집하지 않고, `sweetdev.tistory.com/14`와 같이 숫자 주소체계를 사용하는 블로그의 글은 수집 합니다.
 
 ### Dependencies
 * beautifulsoup4
