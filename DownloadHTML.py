@@ -9,7 +9,8 @@ from urllib.parse import urlparse
 from selenium.webdriver import ActionChains
 from typing import *
 from urllib.parse import urljoin, urlencode, urlparse, urlunparse
-from selenium.common.exceptions import NoSuchElementException, NoSuchAttributeException, TimeoutException
+from selenium.common.exceptions import NoSuchElementException, NoSuchAttributeException, TimeoutException, InvalidSessionIdException
+from selenium.webdriver.support.ui import WebDriverWait
 
 class DownloadHTML():
     def __init__(self, driver):
@@ -24,14 +25,23 @@ class DownloadHTML():
 
     def downloadHTML(self, driver, hostname, url):
         print(">>")
-        # check driver status
-        time.sleep(3) 
+        # check driver status 
         try:
+            driver.implicitly_wait(5)
             driver.get(url)
         except TimeoutException as e:
-            print("TIMEOUT")
+            print("TIMEOUT") # TEST: https://httpstat.us/200?sleep=50000
             print(e)
-            return
+            raise TimeoutException
+        except InvalidSessionIdException as e:
+            print(e)
+            print("이게 매일 멈추는 원인인 것 같음")
+            raise InvalidSessionIdException
+        except Exception as e:
+            print(e)
+            print("이게 매일 멈추는 원인인 것 같음")
+            raise TimeoutException
+
 
         print(">>")
 
@@ -40,14 +50,15 @@ class DownloadHTML():
         try:
             b = driver.find_element(By.XPATH, "//h2[text()='에러 메세지']")
             if b is not None:
-                return None
+                return (None, None, None)
         except NoSuchElementException or NoSuchAttributeException:
             if b is None:
                 return (hostname, url, driver.page_source)
             else:
-                return None
+                return (None, None, None)
         except Exception as e:
             print(e)
+            return (None, None, None)
 
 
     def saveToDatabase(self, db: Databases, hostname, url, body):

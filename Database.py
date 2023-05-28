@@ -73,6 +73,25 @@ class Databases():
             # print(sql)
             self.db.commit()
 
+    def selectTistoryBlogBody(self, limit, offset):
+            schema = "public"
+            table = "tistory"
+           
+            sql = f" SELECT a.body, a.url FROM tistory a ORDER BY url ASC LIMIT {limit} OFFSET {offset};"
+            try:
+                # print(sql)
+                self.cursor.execute(sql)
+                result = self.cursor.fetchall()
+                return result
+                #self.db.commit()
+            except Exception as e :
+                print("DB에서 exception발생")
+                print("insert DB  ",e)
+                print(sql[:200])
+                print(sql[-50:])
+
+                self.db.rollback()
+
     # offset: 시작 위치, limit: 개수
     def selectTistoryLink(self, offset:int, limit:int) -> List[tuple]:
         schema = "public"
@@ -93,4 +112,31 @@ class Databases():
             self.db.rollback()
         else:
             print(sql)
+            self.db.commit()
+    
+    def updatistoryBlogCleanedBody(self, url, title, body, isParsedByMachine):
+        schema = "public"
+        table = "tistory"
+        # 특수문자 제거
+        title = title.replace("%", '')
+        body = body.replace("%", '')
+        if isParsedByMachine is None:
+            _isParsedByMachine = "unknown"
+        else:
+            if isParsedByMachine:
+                _isParsedByMachine = "true"
+            else:
+                _isParsedByMachine = "false"
+
+        sql = " UPDATE {table} SET cleaned_title = {title}, cleaned_body = {body}, is_parsed_by_machine = {_isParsedByMachine} WHERE url = '{url}';".format(table=table, title = f'$YEJIN${title}$YEJIN$', body = f'$YEJIN${body}$YEJIN$', _isParsedByMachine = _isParsedByMachine, url=url)
+        try:
+            # print(sql[100:])
+            self.cursor.execute(sql)
+            #self.db.commit()
+        except Exception as e :
+            print("DB에서 exception발생")
+            print("insert DB  ",e)
+            self.db.rollback()
+        else:
+            # print(sql)
             self.db.commit()

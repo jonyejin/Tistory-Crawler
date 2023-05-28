@@ -2,3 +2,4 @@ beautifulsoup4
 urllib3
 selenium
 psycopg2
+html5lib
