@@ -1,5 +1,0 @@
-SECRET_HOST = '...'
-SECRET_DBNAME = '...'
-SECRET_USER = '...'
-SECRET_PASSWORD = '...'
-SECRET_PORT = '...'
